@@ -7,5 +7,8 @@ include ':@react-native-community_cameraroll'
 project(':@react-native-community_cameraroll').projectDir = new File(rootProject.projectDir, 	'../node_modules/@react-native-community/cameraroll/android')
 include ':react-native-get-sms-android'
 project(':react-native-get-sms-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-get-sms-android/android')
+
+include ':react-native-push-notification'
+project(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/android')
 // include ':react-native-gesture-handler'
 // project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../../android')

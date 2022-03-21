@@ -37,6 +37,9 @@ import ReportHistory from './src/component/ReportHistoryScreen';
 import EmergencyContactScreen from './src/component/EmergencyContact';
 import OtpScreen from './src/component/OtpScreen';
 import VerifyScreen from './src/component/VerifyingScreen';
+import AllReportHistory from './src/component/AllReportHistoryScreen';
+import firebase, {notifications} from 'react-native-firebase';
+import PushNotification from 'react-native-push-notification';
 
 const App: () => Node = () => {
   const appState = useRef(AppState.currentState);
@@ -180,15 +183,15 @@ const App: () => Node = () => {
   }, []);
 
   useEffect(() => {
-    if (VerifyData) {
+    if (VerifyData !== false) {
       let verifyFilteredData = VerifyData?.data?.admins.filter(
         items => loggedinUser?.user?._id === items?._id,
       );
-      if (verifyFilteredData[0].accountStatus == 'active') {
+      if (verifyFilteredData[0]?.accountStatus == 'active') {
         setverifying(false);
         AsyncStorage.setItem('accountStatus', 'active');
       }
-      if (verifyFilteredData[0].accountStatus == 'inactive') {
+      if (verifyFilteredData[0]?.accountStatus == 'inactive') {
         setverifying(true);
         AsyncStorage.setItem('accountStatus', 'inactive');
       }
@@ -225,6 +228,51 @@ const App: () => Node = () => {
       subscription.remove();
     };
   }, []);
+
+  useEffect(() => {
+    getTocken();
+    createChannel();
+    notificationListener();
+  }, []);
+
+  const getTocken = () => {
+    // const firebaseToken = await firebase.messaging().getToken();
+    // console.log('firebaseTOken====================', firebaseToken);
+    firebase.messaging().subscribeToTopic('topic');
+  };
+  getTocken();
+
+  const createChannel = () => {
+    PushNotification.createChannel({channelId: 'topic', channelName: 'topic'});
+    const channel = new firebase.notifications.Android.Channel(
+      'channelId',
+      'channelName',
+      firebase.notifications.Android.Importance.Max,
+    ).setDescription('Description');
+    firebase.notifications().android.createChannel(channel);
+  };
+
+  const notificationListener = () => {
+    firebase.notifications().onNotification(notification => {
+      if (platform.OS === 'android') {
+        const localNotification = new firebase.notifications.Notification({
+          sound: 'default',
+          show_in_foreground: true,
+        })
+          .setNotificationId(notification.notificationId)
+          .setTitle(notification.title)
+          .setSubtitle(notification.subtitle)
+          .setBody(notification.body)
+          .setData(notification.data)
+          .android.setChannelId('channelId')
+          .android.setPriority(firebase.notifications.Android.Priority.High);
+        firebase
+          .notifications()
+          .displayNotification(localNotification)
+          .catch(err => console.log(err));
+      }
+    });
+  };
 
   if (animating) {
     return <SplashScreen />;
@@ -318,6 +366,12 @@ const App: () => Node = () => {
               component={ReportHistory}
               options={{title: 'ReportHistory'}}
             />
+            <Stack.Screen
+              name="AllReportHistory"
+              component={AllReportHistory}
+              options={{title: 'AllReportHistory'}}
+            />
+
             <Stack.Screen
               name="EmergencyContactScreen"
               component={EmergencyContactScreen}

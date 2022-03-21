@@ -510,8 +510,68 @@ const HomeScreen = ({navigation}) => {
                 />
               </View>
             </Pressable>
+            <Pressable onPress={() => navigation.navigate('AllReportHistory')}>
+              <View
+                style={{
+                  display: 'flex',
+                  // flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 20,
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  paddingLeft: 12,
+                  paddingRight: 12,
+                  shadowColor: '#000',
+                  shadowOffset: {width: 3, height: 3},
+                  shadowOpacity: 1,
+                  shadowRadius: 7,
+                  elevation: 3,
+                  borderRadius: 15,
+                  backgroundColor: '#fff',
+                  width: WIDTH - 74,
+                }}>
+                <Image
+                  source={History}
+                  resizeMode="contain"
+                  style={{
+                    width: 60,
+                    height: 55,
+                    aspectRatio: 1,
+                    marginTop: 0,
+                    marginRight: 18,
+                  }}
+                />
+                <View style={{maxWidth: 200}}>
+                  <Text
+                    style={{
+                      color: '#0F254F',
+                      fontSize: 14,
+                      marginBottom: 4,
+                      fontWeight: '700',
+                    }}>
+                    Manage Reports
+                  </Text>
+                  <Text style={{color: '#5C5F69', fontSize: 12}}>
+                    A police can be contorl and update the status of public
+                    reports.
+                  </Text>
+                </View>
+                <Image
+                  source={IconRight}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    aspectRatio: 1,
+                    marginTop: 0,
+                    marginLeft: 'auto',
+                  }}
+                />
+              </View>
+            </Pressable>
             {/* for bus authority */}
-            <Text>
+            {/* <Text>
               {loggedIn?.user?.signupAs == 'transport authority' ? (
                 <>
                   {' '}
@@ -641,7 +701,7 @@ const HomeScreen = ({navigation}) => {
                   </Pressable>
                 </>
               ) : null}
-            </Text>
+            </Text> */}
           </View>
         </ScrollView>
       </View>

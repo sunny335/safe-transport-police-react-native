@@ -254,6 +254,7 @@ const ReportBoardScreen = ({navigation}) => {
           reportedPhoto: BusownerImage.avatarSource,
           ReportType: selectedValue,
           ReporterLocation: currentLocation,
+          ReporterData: loggedIn.user,
         }),
       );
     }
