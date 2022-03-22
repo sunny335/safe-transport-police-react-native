@@ -4,7 +4,13 @@ import {t} from 'react-native-tailwindcss';
 
 const WIDTH = Dimensions.get('window').width;
 export default function Input(props) {
-  const {onChangeText, value, placeholder, type} = props;
+  const {
+    onChangeText,
+    value,
+    placeholder,
+    type,
+    secureTextEntry = false,
+  } = props;
   return (
     <View style={styles.wrapper}>
       <View style={{width: WIDTH - 105}}>
@@ -14,6 +20,7 @@ export default function Input(props) {
           value={value}
           placeholder={placeholder}
           type={type}
+          secureTextEntry={secureTextEntry}
         />
         <Text>
           {props.errorText && (

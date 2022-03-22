@@ -417,6 +417,7 @@ const Index = ({navigation, setLoggedIns}) => {
                     type="password"
                     error={errors?.loginpassword}
                     errorText={errors?.loginpassword?.message}
+                    secureTextEntry={true}
                   />
                 )}
               />
@@ -799,6 +800,7 @@ const Index = ({navigation, setLoggedIns}) => {
                     placeholder="password"
                     error={errors?.password}
                     errorText={errors?.password?.message}
+                    secureTextEntry={true}
                   />
                 )}
               />
