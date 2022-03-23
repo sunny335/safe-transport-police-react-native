@@ -18,6 +18,8 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
+// import { Picker } from '@react-native-picker/picker';
+import SelectDropdown from 'react-native-select-dropdown';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {t} from 'react-native-tailwindcss';
@@ -27,7 +29,7 @@ import image1 from '../image/loginBg.png';
 // import profile from '../image/profile.jpg';
 import avatar from '../image/avatar.png';
 import DoubleRight from '../image/DoubleRight.png';
-
+import axioss from '../helpers/axios';
 import HomeImg from '../image/Home.png';
 import ProfileImg from '../image/profileicon.png';
 import QrCode from '../image/QrCode.png';
@@ -40,6 +42,7 @@ const HEIGHT = Dimensions.get('window').height;
 const Index = ({navigation}) => {
   // const userauth = useSelector(state => state.userAuth);
   const isDarkMode = useColorScheme() === 'dark';
+  const [selectedValue, setSelectedValue] = useState(null);
   const [loggedIn, setLoggedIn] = useState({});
   const posts = useSelector(state => state.reports);
   const [Report, setReport] = useState({posts: []});
@@ -61,13 +64,13 @@ const Index = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getPosts());
-    axios
-      .get('http://safetransport-backend.herokuapp.com/api/getReportData')
-      .then(res => {
-        const persons = res;
-        setReport(persons?.data);
-      });
-    // setReport(posts.posts);
+    // axios
+    //   .get('http://safetransport-backend.herokuapp.com/api/getReportData')
+    //   .then(res => {
+    //     const persons = res;
+    //     setReport(persons?.data);
+    //   });
+    setReport(posts.posts);
   }, [refresh]);
 
   console.log('id===========', modalUserID);
@@ -79,6 +82,19 @@ const Index = ({navigation}) => {
     ReportbackendData.filter(item => item?._id === modalUserID);
 
   console.log('===========', filterReportedData);
+
+  const ReporterStatus = async (ReportStatus, id) => {
+    setSelectedValue(ReportStatus);
+    const AccountStatusData = {
+      ReportStatus,
+      id,
+    };
+    await axioss.post('/updateReport', {
+      ...AccountStatusData,
+    });
+    console.log('selectedItem', id);
+  };
+
   return (
     <View
       style={{
@@ -142,7 +158,7 @@ const Index = ({navigation}) => {
                     loggedIn?.user?.firstName + ' ' + loggedIn?.user.lastName}
                 </Text>
               </View>
-              <View
+              <Pressable
                 style={{marginLeft: 'auto'}}
                 onPress={() => setrefresh(!refresh)}>
                 <Image
@@ -156,7 +172,7 @@ const Index = ({navigation}) => {
                     marginLeft: 'auto',
                   }}
                 />
-              </View>
+              </Pressable>
             </View>
           </View>
           <View>
@@ -242,7 +258,7 @@ const Index = ({navigation}) => {
                   }}>
                   All Reports
                 </Text>
-                <View
+                <Pressable
                   style={{marginLeft: 'auto'}}
                   onPress={() => setrefresh(!refresh)}>
                   <Image
@@ -256,7 +272,7 @@ const Index = ({navigation}) => {
                       marginLeft: 'auto',
                     }}
                   />
-                </View>
+                </Pressable>
               </View>
               <ScrollView
                 horizontal={true}
@@ -312,6 +328,10 @@ const Index = ({navigation}) => {
                         style={{width: 70, color: '#fff', textAlign: 'center'}}>
                         Date
                       </Text>
+                      <Text
+                        style={{width: 70, color: '#fff', textAlign: 'center'}}>
+                        Status
+                      </Text>
                     </View>
                   ) : (
                     <Text>No report Found</Text>
@@ -321,7 +341,7 @@ const Index = ({navigation}) => {
                     ReportbackendData.map((item, i) => (
                       <Pressable
                         onPress={() => {
-                          setModalVisible(true);
+                          // setModalVisible(true);
                           setmodalUserID(item?._id);
                         }}>
                         <View
@@ -384,7 +404,86 @@ const Index = ({navigation}) => {
                             }}>
                             {item.createdAt.split('T')[0]}
                           </Text>
+                          <View
+                            style={{
+                              width: 80,
+                              color: '#000000',
+                              textAlign: 'center',
+                            }}>
+                            {/* <Picker
+                              selectedValue={selectedValue}
+                              mode="dialog"
+                              onValueChange={(itemValue, itemIndex) =>
+                                setSelectedValue(itemValue)
+                              }
+                              style={{
+                                height: 0,
+                                width: 100,
+                                paddingBottom: 10,
+                                marginTop: 0,
+                                backgroundColor: '#ddd',
+                                fontSize: 12,
+                              }}>
+                              <Picker.Item label="Active" value="Active" />
+                              <Picker.Item
+                                label="Procesing"
+                                value=" Procesing"
+                              />
+                              <Picker.Item label="Complete" value=" Complete" />
+                            </Picker> */}
+                            <SelectDropdown
+                              data={['Active', 'Processing', 'Complete']}
+                              buttonTextStyle={{
+                                fontSize: 12,
+                                padding: 0,
+                                color:
+                                  (item?.ReportStatus == 'Active' &&
+                                    '#FF004D') ||
+                                  (item?.ReportStatus == 'Processing' &&
+                                    '#0695E3') ||
+                                  (item?.ReportStatus == 'Complete' &&
+                                    '#2745AE'),
+                              }}
+                              buttonStyle={{
+                                padding: 0,
+                                width: 90,
+                                margin: 0,
+                                height: 40,
+                                backgroundColor: '#D6FFE7',
+                              }}
+                              dropdownStyle={{
+                                width: 100,
+                                left: 70,
+                                marginLeft: -15,
+                                padding: 0,
+                                borderRadius: 4,
+                              }}
+                              // statusBarTranslucent={true}
+                              rowTextStyle={{
+                                color: '#fff',
+                                height: 20,
+                                fontSize: 14,
+                                padding: 0,
+                              }}
+                              rowStyle={{
+                                padding: 0,
+                                height: 35,
+                                borderRadius: 4,
+                              }}
+                              dropdownBackgroundColor="#06EDC3"
+                              // dropdownOverlayColor="#fff"
+                              defaultValue={
+                                item?.ReportStatus
+                                  ? item.ReportStatus
+                                  : 'Active'
+                              }
+                              onSelect={(selectedItem, index) => {
+                                ReporterStatus(selectedItem, item?._id);
+                              }}
+                            />
+                          </View>
                         </View>
+                        {/* {item?.ReportStatus} */}
                       </Pressable>
                     ))}
                 </View>
