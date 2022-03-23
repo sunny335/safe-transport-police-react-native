@@ -31,7 +31,9 @@ import DoubleRight from '../image/DoubleRight.png';
 import HomeImg from '../image/Home.png';
 import ProfileImg from '../image/profileicon.png';
 import QrCode from '../image/QrCode.png';
+import refreshIcon from '../image/refresh.png';
 import {getPosts} from '../actions/report.action';
+
 import {color} from 'react-native-reanimated';
 const HEIGHT = Dimensions.get('window').height;
 
@@ -99,7 +101,7 @@ const Index = ({navigation}) => {
                 marginBottom: 30,
                 marginTop: 80,
               }}>
-              <Image
+              {/* <Image
                 source={DoubleRight}
                 resizeMode="contain"
                 style={{
@@ -107,9 +109,8 @@ const Index = ({navigation}) => {
                   height: 20,
                   aspectRatio: 1,
                   marginTop: 10,
-                  // marginLeft: 'auto',
                 }}
-              />
+              /> */}
               <View
                 style={{
                   height: 42,
@@ -140,6 +141,21 @@ const Index = ({navigation}) => {
                   {loggedIn?.user?.firstName &&
                     loggedIn?.user?.firstName + ' ' + loggedIn?.user.lastName}
                 </Text>
+              </View>
+              <View
+                style={{marginLeft: 'auto'}}
+                onPress={() => setrefresh(!refresh)}>
+                <Image
+                  source={refreshIcon}
+                  resizeMode="contain"
+                  style={{
+                    width: 20,
+                    height: 20,
+                    aspectRatio: 1,
+                    marginTop: 10,
+                    marginLeft: 'auto',
+                  }}
+                />
               </View>
             </View>
           </View>
@@ -217,11 +233,31 @@ const Index = ({navigation}) => {
           }}>
           <ScrollView>
             <View>
-              <Text
-                style={{color: '#263238', fontWeight: '700', marginBottom: 14}}
-                onPress={() => setModalVisible(true)}>
-                All Reports
-              </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    color: '#263238',
+                    fontWeight: '700',
+                    marginBottom: 14,
+                  }}>
+                  All Reports
+                </Text>
+                <View
+                  style={{marginLeft: 'auto'}}
+                  onPress={() => setrefresh(!refresh)}>
+                  <Image
+                    source={refreshIcon}
+                    resizeMode="contain"
+                    style={{
+                      width: 20,
+                      height: 20,
+                      aspectRatio: 1,
+                      marginTop: 0,
+                      marginLeft: 'auto',
+                    }}
+                  />
+                </View>
+              </View>
               <ScrollView
                 horizontal={true}
                 // showsHorizontalScrollIndicator={false}

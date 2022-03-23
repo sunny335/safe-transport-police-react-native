@@ -28,6 +28,7 @@ import HomeImg from '../image/Home.png';
 import ProfileImg from '../image/profileicon.png';
 import QrCode from '../image/QrCode.png';
 import {getPosts} from '../actions/report.action';
+import refreshIcon from '../image/refresh.png';
 import {color} from 'react-native-reanimated';
 const HEIGHT = Dimensions.get('window').height;
 
@@ -38,6 +39,7 @@ const Index = ({navigation}) => {
   const posts = useSelector(state => state.reports);
   const [Report, setReport] = useState({posts: []});
   const dispatch = useDispatch();
+  const [refresh, setrefresh] = useState(false);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#ffff' : '#ffff',
   };
@@ -52,14 +54,14 @@ const Index = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getPosts());
-    axios
-      .get('http://safetransport-backend.herokuapp.com/api/getReportData')
-      .then(res => {
-        const persons = res;
-        setReport(persons?.data);
-      });
-    // setReport(posts.posts);
-  }, []);
+    // axios
+    //   .get('http://safetransport-backend.herokuapp.com/api/getReportData')
+    //   .then(res => {
+    //     const persons = res;
+    //     setReport(persons?.data);
+    //   });
+    setReport(posts.posts);
+  }, [refresh]);
 
   let ReportbackendData = [];
   ReportbackendData =
@@ -182,10 +184,31 @@ const Index = ({navigation}) => {
           }}>
           <ScrollView>
             <View>
-              <Text
-                style={{color: '#263238', fontWeight: '700', marginBottom: 14}}>
-                My Reports
-              </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    color: '#263238',
+                    fontWeight: '700',
+                    marginBottom: 14,
+                  }}>
+                  My Reports
+                </Text>
+                <View
+                  style={{marginLeft: 'auto'}}
+                  onPress={() => setrefresh(!refresh)}>
+                  <Image
+                    source={refreshIcon}
+                    resizeMode="contain"
+                    style={{
+                      width: 20,
+                      height: 20,
+                      aspectRatio: 1,
+                      marginTop: 0,
+                      marginLeft: 'auto',
+                    }}
+                  />
+                </View>
+              </View>
               {ReportbackendData.length > 0 ? (
                 <View
                   style={{

@@ -255,6 +255,7 @@ const ReportBoardScreen = ({navigation}) => {
           ReportType: selectedValue,
           ReporterLocation: currentLocation,
           ReporterData: loggedIn.user,
+          ReportStatus: 'Active',
         }),
       );
     }
