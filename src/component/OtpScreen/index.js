@@ -184,7 +184,7 @@ const Index = ({navigation, setLoggedIns}) => {
                 marginTop: 0,
                 fontWeight: '700',
                 fontSize: 24,
-                color: '#03CA51',
+                color: '#033ACA',
                 textTransform: 'capitalize',
               }}>
               Verify

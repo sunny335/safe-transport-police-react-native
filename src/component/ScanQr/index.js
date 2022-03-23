@@ -500,7 +500,7 @@ const ScanQrCode = ({navigation}) => {
                     style={{
                       height: 280,
                       borderWidth: 3,
-                      borderColor: '#03CA51',
+                      borderColor: '#033ACA',
                       borderRadius: 5,
                       overflow: 'hidden',
                     }}>
@@ -584,7 +584,7 @@ const ScanQrCode = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,

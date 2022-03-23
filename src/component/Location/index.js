@@ -99,7 +99,7 @@ const Location = ({navigation}) => {
               marginBottom: 26,
               fontWeight: '700',
               fontSize: 24,
-              color: '#03CA51',
+              color: '#033ACA',
               lineHeight: 33,
             }}>
             Location
@@ -164,7 +164,7 @@ const Location = ({navigation}) => {
                 backgroundColor: '#fff',
                 height: 41,
                 width: 128,
-                color: '#03CA51',
+                color: '#033ACA',
                 paddingTop: 11,
                 paddingBottom: 12,
                 paddingLeft: 31,
@@ -174,7 +174,7 @@ const Location = ({navigation}) => {
                 textTransform: 'uppercase',
                 borderRadius: 45,
                 borderWidth: 1,
-                borderColor: '#03CA51',
+                borderColor: '#033ACA',
                 borderRadius: 50,
                 textAlign: 'center',
               }}

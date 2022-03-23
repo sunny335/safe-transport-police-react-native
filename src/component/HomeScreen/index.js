@@ -743,7 +743,7 @@ const HomeScreen = ({navigation}) => {
             />
             <Text
               style={{
-                color: '#27AE60',
+                color: '#2F80ED',
                 fontSize: 12,
                 fontWeight: '700',
                 marginTop: 9,
@@ -757,7 +757,7 @@ const HomeScreen = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,

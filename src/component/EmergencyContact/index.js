@@ -282,7 +282,7 @@ const EmergencyContactScreen = ({navigation}) => {
                   />
                   <Text
                     style={{
-                      color: '#27AE60',
+                      color: '#2F80ED',
                       fontWeight: '700',
                       fontSize: 14,
                       margin: 0,
@@ -382,8 +382,8 @@ const EmergencyContactScreen = ({navigation}) => {
                       width: 70,
                       borderRadius: 5,
                       borderWidth: 1,
-                      borderColor: '#27AE60',
-                      backgroundColor: '#27AE60',
+                      borderColor: '#2F80ED',
+                      backgroundColor: '#2F80ED',
                     }}
                     onPress={handleSubmit(onSubmit)}>
                     <Text style={{color: '#fff', paddingHorizontal: 7}}>
@@ -578,7 +578,7 @@ const EmergencyContactScreen = ({navigation}) => {
                 <Pressable
                   style={{
                     flexDirection: 'row',
-                    backgroundColor: '#00D253',
+                    backgroundColor: '#003BD2',
                     alignItems: 'center',
                     padding: 6,
                     paddingHorizontal: 12,
@@ -615,7 +615,7 @@ const EmergencyContactScreen = ({navigation}) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        backgroundColor: '#2EC16C',
+                        backgroundColor: '#2F80ED',
                         alignItems: 'center',
                         padding: 6,
                         marginTop: 10,
@@ -822,7 +822,7 @@ const EmergencyContactScreen = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,
@@ -858,7 +858,7 @@ const EmergencyContactScreen = ({navigation}) => {
             />
             <Text
               style={{
-                color: '#27AE60',
+                color: '#2F80ED',
                 fontSize: 12,
                 fontWeight: '400',
                 marginTop: 9,
@@ -891,7 +891,7 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     width: 300,
     textAlign: 'center',
-    backgroundColor: '#00D253',
+    backgroundColor: '#003BD2',
   },
   login: {
     // flex: 1,
@@ -940,7 +940,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#8ad24e',
+    backgroundColor: '#003BD2',
   },
   buttonTextStyle: {
     color: '#fff',

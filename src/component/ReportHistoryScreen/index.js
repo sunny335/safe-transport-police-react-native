@@ -191,7 +191,7 @@ const Index = ({navigation}) => {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    backgroundColor: '#2EC16C',
+                    backgroundColor: '#2F80ED',
                     alignItems: 'center',
                     padding: 6,
                   }}>
@@ -276,7 +276,7 @@ const Index = ({navigation}) => {
             />
             <Text
               style={{
-                color: '#27AE60',
+                color: '#2F80ED',
                 fontSize: 12,
                 fontWeight: '700',
                 marginTop: 9,
@@ -290,7 +290,7 @@ const Index = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,

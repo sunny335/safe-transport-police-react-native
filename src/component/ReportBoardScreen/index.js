@@ -325,7 +325,7 @@ const ReportBoardScreen = ({navigation}) => {
                     }}
                   />
                   <Text
-                    style={{color: '#27AE60', fontWeight: '700', fontSize: 18}}>
+                    style={{color: '#2F80ED', fontWeight: '700', fontSize: 18}}>
                     Well Done!
                   </Text>
                 </View>
@@ -565,14 +565,14 @@ const ReportBoardScreen = ({navigation}) => {
                         <Text
                           style={{
                             marginRight: 10,
-                            backgroundColor: '#00D253',
+                            backgroundColor: '#2F80ED',
                             paddingVertical: 8,
                             paddingHorizontal: 20,
                             color: '#fff',
                             borderRadius: 6,
                             borderWidth: 1,
                             width: '50%',
-                            borderColor: '#00D253',
+                            borderColor: '#2F80ED',
                           }}
                           onPress={() => setscanQr(true)}>
                           Scan QR
@@ -778,13 +778,13 @@ const ReportBoardScreen = ({navigation}) => {
                       <Text
                         style={{
                           marginRight: 10,
-                          backgroundColor: '#00D253',
+                          backgroundColor: '#2F80ED',
                           paddingVertical: 10,
                           paddingHorizontal: 20,
                           color: '#fff',
                           borderRadius: 5,
                           borderWidth: 1,
-                          borderColor: '#00D253',
+                          borderColor: '#2F80ED',
                         }}
                         onPress={handleSubmit(onSubmit)}>
                         Submit
@@ -810,7 +810,7 @@ const ReportBoardScreen = ({navigation}) => {
                     style={{
                       height: 280,
                       borderWidth: 3,
-                      borderColor: '#03CA51',
+                      borderColor: '#033ACA',
                       borderRadius: 5,
                       overflow: 'hidden',
                     }}>
@@ -880,7 +880,7 @@ const ReportBoardScreen = ({navigation}) => {
             />
             <Text
               style={{
-                color: '#27AE60',
+                color: '#2F80ED',
                 fontSize: 12,
                 fontWeight: '700',
                 marginTop: 9,
@@ -894,7 +894,7 @@ const ReportBoardScreen = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,
@@ -963,7 +963,7 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     width: 300,
     textAlign: 'center',
-    backgroundColor: '#00D253',
+    backgroundColor: '#2F80ED',
   },
   login: {
     // flex: 1,

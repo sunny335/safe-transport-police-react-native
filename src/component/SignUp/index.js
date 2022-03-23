@@ -235,7 +235,7 @@ const Index = ({navigation, setLoggedIns}) => {
                   }}
                 />
                 <Text
-                  style={{color: '#27AE60', fontWeight: '700', fontSize: 18}}>
+                  style={{color: '#2F80ED', fontWeight: '700', fontSize: 18}}>
                   You are successfully Created your account
                 </Text>
               </View>
@@ -291,7 +291,7 @@ const Index = ({navigation, setLoggedIns}) => {
                   marginTop: 0,
                   fontWeight: '700',
                   fontSize: 24,
-                  color: '#03CA51',
+                  color: '#033ACA',
                   textTransform: 'capitalize',
                 }}>
                 Verify
@@ -357,7 +357,7 @@ const Index = ({navigation, setLoggedIns}) => {
                   marginTop: 0,
                   fontWeight: '700',
                   fontSize: 24,
-                  color: '#03CA51',
+                  color: '#033ACA',
                   textTransform: 'capitalize',
                 }}>
                 Sign In
@@ -475,7 +475,7 @@ const Index = ({navigation, setLoggedIns}) => {
                   marginTop: 0,
                   fontWeight: '700',
                   fontSize: 24,
-                  color: '#03CA51',
+                  color: '#033ACA',
                   textTransform: 'capitalize',
                 }}>
                 Sign Up

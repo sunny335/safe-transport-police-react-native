@@ -314,7 +314,7 @@ const MakeQr = ({navigation}) => {
                     }}
                   />
                   <Text
-                    style={{color: '#27AE60', fontWeight: '700', fontSize: 18}}>
+                    style={{color: '#2F80ED', fontWeight: '700', fontSize: 18}}>
                     Well Done!
                   </Text>
                 </View>
@@ -340,10 +340,10 @@ const MakeQr = ({navigation}) => {
                       width: 110,
                       borderRadius: 5,
                       borderWidth: 1,
-                      borderColor: '#27AE60',
+                      borderColor: '#2F80ED',
                     }}
                     onPress={() => saveQrToDisk((saveGallery = true))}>
-                    <Text style={{color: '#27AE60', paddingHorizontal: 7}}>
+                    <Text style={{color: '#2F80ED', paddingHorizontal: 7}}>
                       Save Image
                     </Text>
                   </Pressable>
@@ -817,7 +817,7 @@ const MakeQr = ({navigation}) => {
             />
             <Text
               style={{
-                color: '#27AE60',
+                color: '#2F80ED',
                 fontSize: 12,
                 fontWeight: '700',
                 marginTop: 9,
@@ -831,7 +831,7 @@ const MakeQr = ({navigation}) => {
             style={{
               width: 70,
               height: 58,
-              backgroundColor: '#03CA51',
+              backgroundColor: '#033ACA',
               borderRadius: 10,
               marginRight: 62,
               marginLeft: 62,
