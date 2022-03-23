@@ -33,7 +33,7 @@ import {t} from 'react-native-tailwindcss';
 import image1 from '../image/loginBg.png';
 import done from '../image/done.png';
 import LinearGradient from 'react-native-linear-gradient';
-
+import SplashScreen from '../SplashScreen/SplashScreen';
 // const Section = ({children, title}): Node => {
 //   const isDarkMode = useColorScheme() === 'dark';
 //   return (
@@ -202,10 +202,13 @@ const Index = ({navigation, setLoggedIns}) => {
     return matches?.length || 'String is not a number';
   };
 
+  if (modalVisible) {
+    return <SplashScreen />;
+  }
   return (
     <>
       <StatusBar barStyle={isDarkMode ? '#fff' : 'dark-content'} />
-      {modalVisible && (
+      {/* {modalVisible && (
         <Modal
           animationType="slide"
           transparent={true}
@@ -242,7 +245,7 @@ const Index = ({navigation, setLoggedIns}) => {
             </View>
           </View>
         </Modal>
-      )}
+      )} */}
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
