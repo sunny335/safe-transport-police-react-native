@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import type {Node} from 'react';
 import Input from '../Input/Input';
-import {LinearGradient} from 'expo-linear-gradient';
+// import {LinearGradient} from 'expo-linear-gradient';
 import {RadioButton} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -32,6 +32,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {t} from 'react-native-tailwindcss';
 import image1 from '../image/loginBg.png';
 import done from '../image/done.png';
+import LinearGradient from 'react-native-linear-gradient';
 
 // const Section = ({children, title}): Node => {
 //   const isDarkMode = useColorScheme() === 'dark';
@@ -426,11 +427,21 @@ const Index = ({navigation, setLoggedIns}) => {
                 <Text style={{color: '#FF3370'}}>{Loginerror}</Text>
               ) : null}
               {/* {condition} */}
-              <Text
-                style={styles.LoginsubmitButton}
-                onPress={handleSubmit(userFormLogin)}>
-                {LoginLoader ? 'loading...' : 'Submit'}
-              </Text>
+              <LinearGradient
+                colors={[
+                  'rgba(0, 66, 194, 0.93) 8.02%',
+                  'rgba(6, 237, 195, 0.86) 48.17%)',
+                ]}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                locations={[0, 0.6]}
+                style={styles.linearGradient}>
+                <Text
+                  style={styles.LoginsubmitButton}
+                  onPress={handleSubmit(userFormLogin)}>
+                  {LoginLoader ? 'loading...' : 'Submit'}
+                </Text>
+              </LinearGradient>
             </SafeAreaView>
             <Text style={styles.alreadyMember}>New Here?</Text>
             <Text
@@ -804,11 +815,21 @@ const Index = ({navigation, setLoggedIns}) => {
                   />
                 )}
               />
-              <Text
-                style={styles.submitButton}
-                onPress={handleSubmit(userSignupform)}>
-                {loading ? 'loading...' : 'Submit'}
-              </Text>
+              <LinearGradient
+                colors={[
+                  'rgba(0, 66, 194, 0.93) 8.02%',
+                  'rgba(6, 237, 195, 0.86) 48.17%)',
+                ]}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                locations={[0, 0.6]}
+                style={styles.linearGradient}>
+                <Text
+                  style={styles.submitButton}
+                  onPress={handleSubmit(userSignupform)}>
+                  {loading ? 'loading...' : 'Submit'}
+                </Text>
+              </LinearGradient>
             </SafeAreaView>
             <Text style={styles.alreadyMember}>Already Member?</Text>
             <Text
@@ -863,30 +884,40 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     width: 300,
     textAlign: 'center',
-    backgroundColor: '#00D253',
+    // backgroundColor: '#00D253',
     height: 41,
     color: '#fff',
     fontSize: 18,
     fontWeight: '700',
     display: 'flex',
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
-    paddingTop: 8,
+    paddingTop: 5,
+    marginTop: 10,
+    alignItems: 'center',
   },
   LoginsubmitButton: {
     borderRadius: 45,
     width: 300,
     textAlign: 'center',
-    backgroundColor: '#00D253',
+    // backgroundColor: '#00D253',
     height: 41,
     color: '#fff',
     fontSize: 18,
     fontWeight: '700',
     display: 'flex',
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
-    paddingTop: 8,
+    paddingTop: 5,
     marginTop: 10,
+    alignItems: 'center',
+  },
+  linearGradient: {
+    borderRadius: 45,
+    width: 300,
+    height: 41,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   login: {
     flex: 1,

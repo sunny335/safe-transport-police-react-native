@@ -34,7 +34,7 @@ import HomeImg from '../image/Home.png';
 import ProfileImg from '../image/profileicon.png';
 import QrCode from '../image/QrCode.png';
 import generateQr from '../image/generateQr.png';
-import generatedQr from '../image/generated.png';
+import manageReport from '../image/manageReport.png';
 import PlaceMarker from '../image/PlaceMarker.png';
 import SplashScreen from '../SplashScreen/SplashScreen';
 import Geocoder from 'react-native-geocoding';
@@ -101,7 +101,7 @@ const HomeScreen = ({navigation}) => {
     AsyncStorage.removeItem('emergencyStorageData');
     AsyncStorage.removeItem('emergencyFulleData');
     clearAsyncStorage = async () => {
-      AsyncStorage.clear();
+      await AsyncStorage.clear();
     };
     clearAsyncStorage();
   };
@@ -532,7 +532,7 @@ const HomeScreen = ({navigation}) => {
                   width: WIDTH - 74,
                 }}>
                 <Image
-                  source={History}
+                  source={manageReport}
                   resizeMode="contain"
                   style={{
                     width: 60,

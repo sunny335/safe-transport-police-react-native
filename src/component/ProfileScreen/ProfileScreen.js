@@ -15,10 +15,12 @@ import {
   ImageBackground,
   Image,
   Dimensions,
+  Pressable,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
-
+import SplashScreen from '../SplashScreen/SplashScreen';
+import {UserFormsignout} from '../actions/userAuth.action';
 import image1 from '../image/loginBg.png';
 // import profile from '../image/profile.jpg';
 import avatar from '../image/avatar.png';
@@ -31,8 +33,10 @@ import QrCode from '../image/QrCode.png';
 const HEIGHT = Dimensions.get('window').height;
 
 const ProfileScreen = ({navigation}) => {
-  // const userauth = useSelector(state => state.userAuth);
+  const userauth = useSelector(state => state.userAuth);
   const isDarkMode = useColorScheme() === 'dark';
+  const [animating, setAnimating] = useState(false);
+  const dispatch = useDispatch();
   const [loggedIn, setLoggedIn] = useState({});
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#ffff' : '#ffff',
@@ -46,6 +50,33 @@ const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     userFormLogin();
   }, []);
+
+  const logOut = () => {
+    dispatch(UserFormsignout());
+    AsyncStorage.removeItem('OTP');
+    AsyncStorage.removeItem('otpverify');
+    AsyncStorage.removeItem('emergencyStorageData');
+    AsyncStorage.removeItem('emergencyFulleData');
+    clearAsyncStorage = async () => {
+      AsyncStorage.clear();
+    };
+    clearAsyncStorage();
+  };
+  useEffect(() => {
+    if (userauth.loading) {
+      AsyncStorage.removeItem('isLoggedIn');
+      AsyncStorage.removeItem('UserData');
+      setAnimating(true);
+      // setTimeout(() => {
+      // }, 200);
+    } else {
+      setAnimating(false);
+    }
+  }, [userauth.loading]);
+
+  if (animating) {
+    return <SplashScreen />;
+  }
 
   return (
     <View
@@ -232,6 +263,33 @@ const ProfileScreen = ({navigation}) => {
             </View>
           </ScrollView>
         </View>
+        <Pressable
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+          onPress={() => logOut()}>
+          <View
+            style={{
+              backgroundColor: '#D2007E',
+              height: 39,
+              width: '50%',
+              borderRadius: 15,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowColor: '#000',
+              shadowOffset: {width: 15, height: 15},
+              shadowOpacity: 10,
+              shadowRadius: 20,
+              elevation: 8,
+            }}>
+            <Text style={{fontSize: 16, color: '#fff', fontWeight: '700'}}>
+              Log Out
+            </Text>
+          </View>
+        </Pressable>
       </View>
       <View
         style={{

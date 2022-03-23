@@ -23,7 +23,7 @@ import image1 from '../image/loginBg.png';
 // import profile from '../image/profile.jpg';
 import avatar from '../image/avatar.png';
 import DoubleRight from '../image/DoubleRight.png';
-
+import axios from 'axios';
 import HomeImg from '../image/Home.png';
 import ProfileImg from '../image/profileicon.png';
 import QrCode from '../image/QrCode.png';
@@ -52,7 +52,13 @@ const Index = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getPosts());
-    setReport(posts.posts);
+    axios
+      .get('http://safetransport-backend.herokuapp.com/api/getReportData')
+      .then(res => {
+        const persons = res;
+        setReport(persons?.data);
+      });
+    // setReport(posts.posts);
   }, []);
 
   let ReportbackendData = [];

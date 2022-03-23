@@ -21,6 +21,7 @@ import {
 
 import {useDispatch, useSelector} from 'react-redux';
 import {t} from 'react-native-tailwindcss';
+import axios from 'axios';
 
 import image1 from '../image/loginBg.png';
 // import profile from '../image/profile.jpg';
@@ -42,6 +43,7 @@ const Index = ({navigation}) => {
   const [Report, setReport] = useState({posts: []});
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalUserID, setmodalUserID] = useState(null);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#ffff' : '#ffff',
   };
@@ -56,14 +58,24 @@ const Index = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getPosts());
-    setReport(posts.posts);
+    axios
+      .get('http://safetransport-backend.herokuapp.com/api/getReportData')
+      .then(res => {
+        const persons = res;
+        setReport(persons?.data);
+      });
+    // setReport(posts.posts);
   }, []);
 
+  console.log('id===========', modalUserID);
   let ReportbackendData = [];
 
-  ReportbackendData = Report?.posts.length >= 1 && Report?.posts;
+  ReportbackendData = Report?.posts?.length >= 1 && Report?.posts;
+  let filterReportedData =
+    ReportbackendData.length > 0 &&
+    ReportbackendData.filter(item => item?._id === modalUserID);
 
-  console.log('dskjfsdigh hkjsdhiu', ReportbackendData);
+  console.log('===========', filterReportedData);
   return (
     <View
       style={{
@@ -183,8 +195,8 @@ const Index = ({navigation}) => {
       </View>
       <View
         style={{
-          height: HEIGHT - 320,
-          maxHeight: HEIGHT - 320,
+          height: HEIGHT - 480,
+          maxHeight: HEIGHT - 480,
         }}>
         <View
           style={{
@@ -215,7 +227,7 @@ const Index = ({navigation}) => {
                 style={{
                   marginBottom: 30,
                   width: '100%',
-                  backgroundColor: '#000',
+                  // backgroundColor: '#000',
                   flexDirection: 'row',
                 }}>
                 <View
@@ -264,12 +276,16 @@ const Index = ({navigation}) => {
                       </Text>
                     </View>
                   ) : (
-                    <Text>You have not created any report yet</Text>
+                    <Text>No report Found</Text>
                   )}
 
                   {ReportbackendData.length > 0 &&
                     ReportbackendData.map((item, i) => (
-                      <Pressable onPress={() => setModalVisible(true)}>
+                      <Pressable
+                        onPress={() => {
+                          setModalVisible(true);
+                          setmodalUserID(item?._id);
+                        }}>
                         <View
                           key={i}
                           style={{
@@ -331,303 +347,303 @@ const Index = ({navigation}) => {
                             {item.createdAt.split('T')[0]}
                           </Text>
                         </View>
-                        {modalVisible && (
-                          <Modal
-                            animationType="fade"
-                            visible={modalVisible}
-                            transparent={true}
-                            onRequestClose={() => {
-                              Alert.alert('Modal has been closed.');
-                              setModalVisible(false);
-                            }}>
-                            <View
-                              style={{
-                                flex: 1,
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(1, 17, 36, 0.75)',
-                              }}>
-                              <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
-                                  <View>
-                                    <View
-                                      style={{
-                                        flexDirection: 'row',
-                                        marginBottom: 14,
-                                        marginTop: 14,
-                                      }}>
-                                      <Text
-                                        style={{
-                                          color: '#263238',
-                                          fontSize: 16,
-                                          fontWeight: '600',
-                                        }}>
-                                        Report Type:
-                                      </Text>
-                                      <Text
-                                        style={{
-                                          color: '#455A64',
-                                          fontSize: 14,
-                                          fontWeight: '600',
-                                        }}>
-                                        {item.ReportType}
-                                      </Text>
-                                    </View>
-                                    <View>
-                                      {item?.ReportedBusInfo
-                                        ? item.ReportedBusInfo.map(items => (
-                                            <>
-                                              <View
-                                                style={[
-                                                  t.flexRow,
-                                                  t.flex,
-                                                  t.wFull,
-                                                  // t.selfStretch,
-                                                  t.itemsCenter,
-                                                  t.justifyCenter,
-                                                ]}>
-                                                {items.TravelChart !== null ? (
-                                                  <View>
-                                                    <Image
-                                                      source={{
-                                                        uri: items.TravelChart,
-                                                      }}
-                                                      resizeMode="contain"
-                                                      style={{
-                                                        height: 70,
-                                                        aspectRatio: 1,
-                                                        width: 70,
-                                                      }}
-                                                    />
-                                                    <Text
-                                                      style={{
-                                                        color: '#455A64',
-                                                        marginTop: 16,
-                                                      }}>
-                                                      Trave cost chart{' '}
-                                                    </Text>
-                                                  </View>
-                                                ) : null}
-                                                <View
-                                                  style={[
-                                                    t.itemsCenter,
-                                                    t.justifyCenter,
-                                                    t.mX3,
-                                                    {textAlign: 'center'},
-                                                  ]}>
-                                                  <Text
-                                                    style={{
-                                                      color: '#455A64',
-                                                      marginTop: 16,
-                                                    }}>
-                                                    Driver Image
-                                                  </Text>
-                                                  <Image
-                                                    source={{
-                                                      uri: items.DriverImage,
-                                                    }}
-                                                    resizeMode="contain"
-                                                    style={[
-                                                      {
-                                                        height: 80,
-                                                        width: '100%',
-                                                        overflow: 'hidden',
-                                                      },
-                                                    ]}
-                                                  />
-                                                </View>
-                                              </View>
-                                              <Text
-                                                style={{
-                                                  color: '#263238',
-                                                  fontSize: 18,
-                                                  fontWeight: '600',
-                                                  marginBottom: 14,
-                                                  marginTop: 14,
-                                                }}>
-                                                Bus Information
-                                              </Text>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  Bus Name
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.name}
-                                                </Text>
-                                              </View>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  Bus Number
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.busNumber}
-                                                </Text>
-                                              </View>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  Phone Number
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.PhoneNumber}
-                                                </Text>
-                                              </View>
-                                              <Text
-                                                style={{
-                                                  color: '#263238',
-                                                  fontSize: 18,
-                                                  fontWeight: '600',
-                                                  marginVertical: 10,
-                                                }}>
-                                                Bus Information
-                                              </Text>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  Driver Name
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.DriverName}
-                                                </Text>
-                                              </View>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  driver License
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.DriverLicense}
-                                                </Text>
-                                              </View>
-                                              <View
-                                                style={{
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  marginBottom: 5,
-                                                }}>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 16,
-                                                    fontWeight: '400',
-                                                    width: '35%',
-                                                  }}>
-                                                  Driver Phone
-                                                </Text>
-                                                <Text
-                                                  style={{
-                                                    color: '#263238',
-                                                    fontSize: 14,
-                                                    fontWeight: '400',
-                                                  }}>
-                                                  : {items?.DriverPhone}
-                                                </Text>
-                                              </View>
-                                            </>
-                                          ))
-                                        : null}
-                                      <View
-                                        style={{
-                                          flexDirection: 'row',
-                                          justifyContent: 'center',
-                                          marginTop: 20,
-                                        }}>
-                                        <Text
-                                          style={styles.submitButton}
-                                          onPress={() =>
-                                            setModalVisible(false)
-                                          }>
-                                          CLose
-                                        </Text>
-                                      </View>
-                                    </View>
-                                  </View>
-                                </View>
-                              </View>
-                            </View>
-                          </Modal>
-                        )}
                       </Pressable>
                     ))}
                 </View>
+                {modalVisible && (
+                  <Modal
+                    animationType="fade"
+                    visible={modalVisible}
+                    transparent={true}
+                    onRequestClose={() => {
+                      Alert.alert('Modal has been closed.');
+                      setModalVisible(false);
+                    }}>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(1, 17, 36, 0.75)',
+                      }}>
+                      <View View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                          <View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                marginBottom: 14,
+                                marginTop: 14,
+                              }}>
+                              <Text
+                                style={{
+                                  color: '#263238',
+                                  fontSize: 16,
+                                  fontWeight: '600',
+                                }}>
+                                Report Type:
+                              </Text>
+                              <Text
+                                style={{
+                                  color: '#455A64',
+                                  fontSize: 14,
+                                  fontWeight: '600',
+                                }}>
+                                {filterReportedData[0]?.ReportType}
+                              </Text>
+                            </View>
+                            <View>
+                              {filterReportedData[0]?.ReportedBusInfo
+                                ? filterReportedData[0].ReportedBusInfo.map(
+                                    items => (
+                                      <>
+                                        <View
+                                          style={[
+                                            t.flexRow,
+                                            t.flex,
+                                            t.wFull,
+                                            // t.selfStretch,
+                                            t.itemsCenter,
+                                            t.justifyCenter,
+                                          ]}>
+                                          {items.TravelChart !== null ? (
+                                            <View>
+                                              <Image
+                                                source={{
+                                                  uri: items.TravelChart,
+                                                }}
+                                                resizeMode="contain"
+                                                style={{
+                                                  height: 70,
+                                                  aspectRatio: 1,
+                                                  width: 70,
+                                                }}
+                                              />
+                                              <Text
+                                                style={{
+                                                  color: '#455A64',
+                                                  marginTop: 16,
+                                                }}>
+                                                Trave cost chart{' '}
+                                              </Text>
+                                            </View>
+                                          ) : null}
+                                          <View
+                                            style={[
+                                              t.itemsCenter,
+                                              t.justifyCenter,
+                                              t.mX3,
+                                              {textAlign: 'center'},
+                                            ]}>
+                                            <Text
+                                              style={{
+                                                color: '#455A64',
+                                                marginTop: 16,
+                                              }}>
+                                              Driver Image
+                                            </Text>
+                                            <Image
+                                              source={{
+                                                uri: items.DriverImage,
+                                              }}
+                                              resizeMode="contain"
+                                              style={[
+                                                {
+                                                  height: 80,
+                                                  width: '100%',
+                                                  overflow: 'hidden',
+                                                },
+                                              ]}
+                                            />
+                                          </View>
+                                        </View>
+                                        <Text
+                                          style={{
+                                            color: '#263238',
+                                            fontSize: 18,
+                                            fontWeight: '600',
+                                            marginBottom: 14,
+                                            marginTop: 14,
+                                          }}>
+                                          Bus Information
+                                        </Text>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            Bus Name
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.name}
+                                          </Text>
+                                        </View>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            Bus Number
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.busNumber}
+                                          </Text>
+                                        </View>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            Phone Number
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.PhoneNumber}
+                                          </Text>
+                                        </View>
+                                        <Text
+                                          style={{
+                                            color: '#263238',
+                                            fontSize: 18,
+                                            fontWeight: '600',
+                                            marginVertical: 10,
+                                          }}>
+                                          Bus Information
+                                        </Text>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            Driver Name
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.DriverName}
+                                          </Text>
+                                        </View>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            driver License
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.DriverLicense}
+                                          </Text>
+                                        </View>
+                                        <View
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            marginBottom: 5,
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 16,
+                                              fontWeight: '400',
+                                              width: '35%',
+                                            }}>
+                                            Driver Phone
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              color: '#263238',
+                                              fontSize: 14,
+                                              fontWeight: '400',
+                                            }}>
+                                            : {items?.DriverPhone}
+                                          </Text>
+                                        </View>
+                                      </>
+                                    ),
+                                  )
+                                : null}
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  justifyContent: 'center',
+                                  marginTop: 20,
+                                }}>
+                                <Text
+                                  style={styles.submitButton}
+                                  onPress={() => setModalVisible(false)}>
+                                  CLose
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </Modal>
+                )}
               </ScrollView>
             </View>
           </ScrollView>
