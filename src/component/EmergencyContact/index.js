@@ -46,6 +46,7 @@ import Delete from '../image/delete.png';
 import PlaceMarker from '../image/PlaceMarker.png';
 import DoubleRight from '../image/DoubleRight.png';
 import refreshIcon from '../image/refresh.png';
+import smileEyes from '../image/smileEyes.png';
 
 import HomeImg from '../image/homedefault.png';
 import ProfileImg from '../image/useactive.png';
@@ -66,6 +67,7 @@ const EmergencyContactScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [EmergencyPhone, setEmergencyPhone] = useState([]);
   const [EmergencyData, setEmergencyData] = useState([]);
+  const [EmergencyModal, setEmergencyModal] = useState(false);
   const [PhoneData, setPhoeData] = useState({posts: []});
   const [LocationLong, setLocationLong] = useState(null);
   const [currentLocation, setcurrentLocation] = useState(null);
@@ -142,7 +144,7 @@ const EmergencyContactScreen = ({navigation}) => {
               console.log('Failed with this error: ' + fail);
             },
             success => {
-              console.log('SMS sent successfully');
+              setEmergencyModal(true);
             },
           ),
       );
@@ -413,6 +415,95 @@ const EmergencyContactScreen = ({navigation}) => {
                       Cancle
                     </Text>
                   </Pressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      )}
+      {EmergencyModal && (
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={EmergencyModal}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setEmergencyModal(!EmergencyModal);
+          }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              backgroundColor: 'rgba(1, 17, 36, 0.95)',
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+              }}>
+              <View
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={smileEyes}
+                  resizeMode="contain"
+                  style={{
+                    width: 76,
+                    height: 56,
+                    aspectRatio: 1,
+                    marginTop: 0,
+                    marginRight: 3,
+                  }}
+                />
+                <Text
+                  style={{color: '#2F80ED', fontWeight: '700', fontSize: 18}}>
+                  Sucessfull! Your message submitted.
+                </Text>
+                <Text style={{textAlign: 'center', marginTop: 20}}>
+                  Thanks for your support. We are instanlly sent your mesage
+                  with your location to your contact persoms. Don’t be upset!{' '}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    marginTop: 20,
+                  }}>
+                  <Text
+                    style={{
+                      borderRadius: 45,
+                      width: 200,
+                      textAlign: 'center',
+                      backgroundColor: '#2F80ED',
+                      height: 41,
+                      color: '#fff',
+                      fontSize: 18,
+                      fontWeight: '700',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flexDirection: 'row',
+                      paddingTop: 8,
+                    }}
+                    onPress={() => setEmergencyModal(false)}>
+                    CLose
+                  </Text>
                 </View>
               </View>
             </View>
