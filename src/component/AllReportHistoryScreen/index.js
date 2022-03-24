@@ -339,11 +339,7 @@ const Index = ({navigation}) => {
 
                   {ReportbackendData.length > 0 &&
                     ReportbackendData.map((item, i) => (
-                      <Pressable
-                        onPress={() => {
-                          // setModalVisible(true);
-                          setmodalUserID(item?._id);
-                        }}>
+                      <Pressable>
                         <View
                           key={i}
                           style={{
@@ -370,12 +366,23 @@ const Index = ({navigation}) => {
                               </>
                             ))
                           : null} */}
-                          <Text style={{width: 30, color: '#000000'}}>{i}</Text>
+                          <Text
+                            style={{width: 30, color: '#000000'}}
+                            onPress={() => {
+                              setModalVisible(true);
+                              setmodalUserID(item?._id);
+                            }}>
+                            {i}
+                          </Text>
                           <Text
                             style={{
                               width: 100,
                               color: '#000000',
                               textAlign: 'center',
+                            }}
+                            onPress={() => {
+                              setModalVisible(true);
+                              setmodalUserID(item?._id);
                             }}>
                             {item.ReporterData.firstName}{' '}
                             {item.ReporterData.lastName}
@@ -393,6 +400,10 @@ const Index = ({navigation}) => {
                               width: 130,
                               color: '#000000',
                               textAlign: 'center',
+                            }}
+                            onPress={() => {
+                              setModalVisible(true);
+                              setmodalUserID(item?._id);
                             }}>
                             {item.ReportType}{' '}
                           </Text>
@@ -401,6 +412,10 @@ const Index = ({navigation}) => {
                               width: 70,
                               color: '#000000',
                               textAlign: 'center',
+                            }}
+                            onPress={() => {
+                              setModalVisible(true);
+                              setmodalUserID(item?._id);
                             }}>
                             {item.createdAt.split('T')[0]}
                           </Text>
